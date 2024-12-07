@@ -10,8 +10,38 @@ public class Livro {
   private Integer quantidadeEmprestimos;
   private Integer id;
 
-  // TODO: criar o construtor
-  // public Livro(String nomeAutor, String titulo, Integer anoPublicao, Str)
+  public Livro(String nomeAutor, String titulo, Integer anoPublicao, String ISNB, Integer numeroPaginas,
+      Integer quantidadeEmprestimos, Integer id) {
+
+    this.nomeAutor = nomeAutor;
+    this.titulo = titulo;
+    this.anoPublicao = anoPublicao;
+    this.ISNB = ISNB;
+    this.numeroPaginas = numeroPaginas;
+    this.quantidadeEmprestimos = quantidadeEmprestimos;
+    this.id = id;
+
+  }
+
+  public Livro() {
+    this(null, null, null, null, null, null, null);
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
+    }
+
+    if ((obj == null) || (getClass() != obj.getClass())) {
+      return false;
+    }
+
+    Livro livro = (Livro) obj;
+
+    return id == livro.getId();
+
+  }
 
   // Setter para nomeAutor
   public void setNomeAutor(String autor) {
