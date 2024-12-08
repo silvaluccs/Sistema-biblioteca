@@ -9,13 +9,13 @@ public class Node {
 
   public Node(Livro livro) {
     this.livro = livro;
-    this.altura = 0;
+    this.altura = 1;
     this.esquerda = this.direita = null;
 
   }
 
   public Node() {
-    this(0);
+    this(null);
   }
 
 }
