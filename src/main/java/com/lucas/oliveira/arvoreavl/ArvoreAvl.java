@@ -1,12 +1,11 @@
 package com.lucas.oliveira.arvoreavl;
 
-import com.lucas.oliveira.arvoreavl.Node;
 import com.lucas.oliveira.livro.Livro;
 
 // classe responsável pela árvore avl que gerencia os livros
 public class ArvoreAvl {
 
-  Node root;
+  private Node root;
 
   public ArvoreAvl() {
     this.root = null;
@@ -112,8 +111,12 @@ public class ArvoreAvl {
 
   }
 
+  public void inserirLivro(Livro livro) throws IllegalArgumentException {
+    this.root = inserir(livro, this.root);
+  }
+
   // função recursiva para inserir na árvore;
-  public Node inserir(Livro livro, Node raiz) throws IllegalArgumentException {
+  private Node inserir(Livro livro, Node raiz) throws IllegalArgumentException {
 
     if (is_empty(raiz)) {
       return new Node(livro);
@@ -141,7 +144,11 @@ public class ArvoreAvl {
   // função recursiva para remover um livro da árvore com base no id
   // função remove por atualização de ponteiros
 
-  public Node remover(Livro livro, Node raiz) throws IllegalArgumentException {
+  public void removerLivro(Livro livro) throws  IllegalArgumentException {
+    this.root = remover(livro, this.root);
+  }
+
+  private Node remover(Livro livro, Node raiz) throws IllegalArgumentException {
 
     if (is_empty(raiz)) {
       throw new IllegalArgumentException("Erro: Não é possível remover, pois o banco de dados está vazio.");
@@ -193,7 +200,12 @@ public class ArvoreAvl {
     return rotacionarArvore(guardarRaiz, livro);
   }
 
-  public boolean pesquisar(Livro livro, Node raiz) {
+
+  public boolean pesquisarLivro(Livro livro) {
+    return pesquisar(livro, this.root);
+  }
+
+  private boolean pesquisar(Livro livro, Node raiz) {
     if (is_empty(raiz)) { // caso base, livro não encontrado
       return false;
     }
@@ -210,7 +222,11 @@ public class ArvoreAvl {
 
   // função recursiva para atualizar um livro
 
-  public Node atualizar(Livro novoLivro, Node raiz) {
+  public void atualizarLivro  (Livro novoLivro) throws IllegalArgumentException {
+    this.root = atualizar(novoLivro, this.root);
+  }
+
+  private Node atualizar(Livro novoLivro, Node raiz) throws IllegalArgumentException {
 
     if (is_empty(raiz)) {
       throw new IllegalArgumentException(String.format(
@@ -249,26 +265,5 @@ public class ArvoreAvl {
 
   }
 
-  public static void main(String[] args) {
-
-    // TODO: Realizar os casos de teste para as funções
-    ArvoreAvl avv = new ArvoreAvl();
-
-    Livro livro1 = new Livro("George Orwell", "1984", 1949, "978-0451524935", 328, 1200, 1);
-    Livro livro2 = new Livro("J.K. Rowling", "Harry Potter e a Pedra Filosofal", 1997, "978-0747532699", 223, 1500, 2);
-    Livro livro3 = new Livro("F. Scott Fitzgerald", "O Grande Gatsby", 1925, "978-0743273565", 180, 850, 3);
-    Livro livro4 = new Livro("Harper Lee", "O Sol é para Todos", 1960, "978-0061120084", 324, 1100, 4);
-    Livro livro5 = new Livro("J.R.R. Tolkien", "O Senhor dos Anéis: A Sociedade do Anel", 1954, "978-0618640157", 423,
-        1300, 5);
-
-    avv.setRoot(avv.inserir(livro5, avv.getRoot()));
-    avv.setRoot(avv.inserir(livro4, avv.getRoot()));
-    avv.setRoot(avv.inserir(livro3, avv.getRoot()));
-    avv.setRoot(avv.inserir(livro2, avv.getRoot()));
-    avv.setRoot(avv.inserir(livro1, avv.getRoot()));
-
-    avv.preOrder(avv.getRoot());
-
-  }
 
 }
