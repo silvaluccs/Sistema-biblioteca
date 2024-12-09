@@ -6,7 +6,7 @@ import com.lucas.oliveira.livro.Livro;
 // classe responsável pela árvore avl que gerencia os livros
 public class ArvoreAvl {
 
-  private Node root;
+  Node root;
 
   public ArvoreAvl() {
     this.root = null;
@@ -22,7 +22,7 @@ public class ArvoreAvl {
 
   // função para obter a altura de um nó
   private int altura(Node N) {
-    if (N == null) {
+    if (is_empty(N)) {
       return 0;
     }
 
@@ -63,7 +63,7 @@ public class ArvoreAvl {
   // função para obter o fator de balanceamento, considerando esquerda como
   // positivo
   private int fatorBalanceamento(Node N) {
-    if (N == null) {
+    if (is_empty(N)) {
       return 0;
     }
 
@@ -71,27 +71,16 @@ public class ArvoreAvl {
 
   }
 
-  // função recursiva para inserir na árvore;
-  public Node inserir(Livro livro, Node raiz) throws IllegalArgumentException {
+  private boolean is_empty(Node raiz) {
+    return raiz == null;
+  }
 
-    if (raiz == null) {
-      return new Node(livro);
+  // função para rotacionar a árvore
+  private Node rotacionarArvore(Node raiz, Livro livro) {
+
+    if (is_empty(raiz)) {
+      return raiz;
     }
-
-    if (livro.getId() < raiz.livro.getId()) { // inserindo no ramo esquerdo da árvore
-
-      raiz.esquerda = inserir(livro, raiz.esquerda);
-
-    } else if (livro.getId() > raiz.livro.getId()) {
-      raiz.direita = inserir(livro, raiz.direita); // inserindo no ramo direito da árvore
-
-    } else { // caso o livro já exista na coleção
-      throw new IllegalArgumentException(
-          String.format("Erro: O livro %s, do autor %s, já existe no acervo.\nAtualize a quantidade de exemplares",
-              livro.getTitulo(), livro.getNomeAutor()));
-    }
-
-    raiz.altura = Math.max(altura(raiz.esquerda), altura(raiz.direita)) + 1; // atualizando a altura
 
     int fatorBalanco = fatorBalanceamento(raiz);
 
@@ -123,6 +112,131 @@ public class ArvoreAvl {
 
   }
 
+  // função recursiva para inserir na árvore;
+  public Node inserir(Livro livro, Node raiz) throws IllegalArgumentException {
+
+    if (is_empty(raiz)) {
+      return new Node(livro);
+    }
+
+    if (livro.getId() < raiz.livro.getId()) { // inserindo no ramo esquerdo da árvore
+
+      raiz.esquerda = inserir(livro, raiz.esquerda);
+
+    } else if (livro.getId() > raiz.livro.getId()) {
+      raiz.direita = inserir(livro, raiz.direita); // inserindo no ramo direito da árvore
+
+    } else { // caso o livro já exista na coleção
+      throw new IllegalArgumentException(
+          String.format("Erro: O livro %s, do autor %s, já existe no acervo.\nAtualize a quantidade de exemplares",
+              livro.getTitulo(), livro.getNomeAutor()));
+    }
+
+    raiz.altura = Math.max(altura(raiz.esquerda), altura(raiz.direita)) + 1; // atualizando a altura
+
+    return rotacionarArvore(raiz, livro);
+
+  }
+
+  // função recursiva para remover um livro da árvore com base no id
+  // função remove por atualização de ponteiros
+
+  public Node remover(Livro livro, Node raiz) throws IllegalArgumentException {
+
+    if (is_empty(raiz)) {
+      throw new IllegalArgumentException("Erro: Não é possível remover, pois o banco de dados está vazio.");
+    }
+
+    Node guardarRaiz = raiz;
+
+    // buscando o id do livro na árvore
+    if (livro.getId() < raiz.livro.getId()) {
+      raiz.esquerda = remover(livro, raiz.esquerda);
+    } else if (livro.getId() > raiz.livro.getId()) {
+      raiz.direita = remover(livro, raiz.direita);
+    } else {
+
+      // neste caso o id foi encontrado
+
+      if (raiz.direita == null || raiz.esquerda == null) { // caso o nó a ser removido tenha um filho ou nenhum
+
+        guardarRaiz = raiz.esquerda != null ? raiz.esquerda : raiz.direita;
+        System.gc(); // chamando o coletor de lixo
+
+      } else { // caso o nó a ser removido tenha dois filhos
+
+        Node anteriorGuardarRaiz = null;
+        guardarRaiz = raiz.direita;
+
+        while (guardarRaiz.esquerda != null) { // percorrendo o nó mais esquerda do filho da direita do nó a ser
+                                               // removido
+          anteriorGuardarRaiz = guardarRaiz;
+          guardarRaiz = guardarRaiz.esquerda;
+        }
+
+        guardarRaiz.esquerda = raiz.esquerda; // atualizando os ponteirps
+
+        if (anteriorGuardarRaiz != null) {
+          anteriorGuardarRaiz.esquerda = guardarRaiz.direita;
+          guardarRaiz.direita = raiz.direita;
+        }
+
+        System.gc(); // chamando o coletor de lixo
+
+      }
+
+    }
+    if (is_empty(guardarRaiz)) {
+      return guardarRaiz;
+    }
+    guardarRaiz.altura = Math.max(altura(guardarRaiz.direita), altura(guardarRaiz.esquerda)) + 1;
+    return rotacionarArvore(guardarRaiz, livro);
+  }
+
+  public boolean pesquisar(Livro livro, Node raiz) {
+    if (is_empty(raiz)) { // caso base, livro não encontrado
+      return false;
+    }
+
+    if (livro.getId() < raiz.livro.getId()) {
+      return pesquisar(livro, raiz.esquerda); // procurando nos ramos da esquerda
+    } else if (livro.getId() > raiz.livro.getId()) {
+      return pesquisar(livro, raiz.direita); // procurando nos ramos da direita
+    } else {
+      return true; // caso tenha achado o livro na coleção
+    }
+
+  }
+
+  // função recursiva para atualizar um livro
+
+  public Node atualizar(Livro novoLivro, Node raiz) {
+
+    if (is_empty(raiz)) {
+      throw new IllegalArgumentException(String.format(
+          "Erro: Não foi possivél atualizar o livro %s, porque o banco de dados está vazio.", novoLivro.getTitulo()));
+    }
+
+    if (novoLivro.getId() < raiz.livro.getId()) { // procurando no ramo da esquerda
+      raiz.esquerda = atualizar(novoLivro, raiz.esquerda);
+
+    } else if (novoLivro.getId() > raiz.livro.getId()) { // procurando no ramo da direita
+      raiz.direita = atualizar(novoLivro, raiz.direita);
+
+    } else {
+      if (raiz.livro.equals(novoLivro)) {
+        raiz.livro = novoLivro;
+      } else {
+        throw new IllegalArgumentException(String.format(
+            "Erro: Não foi possível atualizar pois, o livro %s é diferente do que consta no banco de dados.",
+            novoLivro.getTitulo()));
+      }
+    }
+
+    return raiz;
+
+  }
+
   public void preOrder(Node raiz) {
 
     if (raiz != null) {
@@ -137,6 +251,7 @@ public class ArvoreAvl {
 
   public static void main(String[] args) {
 
+    // TODO: Realizar os casos de teste para as funções
     ArvoreAvl avv = new ArvoreAvl();
 
     Livro livro1 = new Livro("George Orwell", "1984", 1949, "978-0451524935", 328, 1200, 1);
