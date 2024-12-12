@@ -1,25 +1,25 @@
 package com.lucas.oliveira.pessoa;
 
-// classe responsável pelo cliente do sistema
-
 public class Pessoa {
 
   private String nome;
   private int idade;
   private String cpf;
-  private int quantidadeLivrosEmprestados;
-  private Integer idLivroEmprestadoAtual;
+  private ContaBiblioteca contaUsuario;
 
-  public Pessoa(String nome, int idade, String cpf, int quantidadeLivrosEmprestados, Integer idLivroEmprestadoAtual) {
+  public Pessoa(String nome, int idade, String cpf, Integer idLivroEmprestadoAtual) {
     this.nome = nome;
     this.idade = idade;
     this.cpf = cpf;
-    this.quantidadeLivrosEmprestados = quantidadeLivrosEmprestados;
-    this.idLivroEmprestadoAtual = idLivroEmprestadoAtual;
+    contaUsuario = new ContaBiblioteca(idLivroEmprestadoAtual);
+  }
+
+  public ContaBiblioteca getContaUsuario() {
+    return contaUsuario;
   }
 
   public Pessoa() {
-    this(null, 0, null, 0, null);
+    this(null, 0, null, null);
   }
 
   public void setNome(String nome) {
@@ -45,31 +45,6 @@ public class Pessoa {
 
   public String getCpf() {
     return this.cpf;
-  }
-
-  public void setQuantidadeLivrosEmprestados(int quantidadeLivrosEmprestados) throws IllegalArgumentException {
-    verificarNumeroValido(quantidadeLivrosEmprestados);
-
-    if (this.quantidadeLivrosEmprestados < quantidadeLivrosEmprestados) {
-      this.quantidadeLivrosEmprestados = quantidadeLivrosEmprestados;
-      return;
-    }
-
-    throw new IllegalArgumentException("A quantidade de livro emprestado é menor que o total registrado.");
-
-  }
-
-  public int getQuantidadeLivrosEmprestados() {
-    return this.quantidadeLivrosEmprestados;
-  }
-
-  public void setIdLivroEmprestadoAtual(int idLivroEmprestadoAtual) throws IllegalArgumentException {
-    verificarNumeroValido(idLivroEmprestadoAtual);
-    this.idLivroEmprestadoAtual = idLivroEmprestadoAtual;
-  }
-
-  public Integer getIdLivroEmprestadoAtual() {
-    return idLivroEmprestadoAtual;
   }
 
   private void verificarNumeroValido(int n) throws IllegalArgumentException {
