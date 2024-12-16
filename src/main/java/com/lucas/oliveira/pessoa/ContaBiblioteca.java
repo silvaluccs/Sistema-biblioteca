@@ -11,21 +11,15 @@ public class ContaBiblioteca {
   private String dataVencimentoEmprestimo;
   private int quantidadeLivrosEmprestados;
 
-  private static int PRAZO_ENTREGA_DIAS = 8;
+  private static final int PRAZO_ENTREGA_DIAS = 8;
 
   public ContaBiblioteca(Integer IdLivro) {
 
-    this();
-    emprestarLivro(IdLivro);
-
-  }
-
-  public ContaBiblioteca() {
-
     this.debito = 0;
-    this.idLivroAtualEmprestado = null;
-    this.dataVencimentoEmprestimo = null;
-
+    this.idLivroAtualEmprestado = IdLivro;
+    this.dataVencimentoEmprestimo =
+        setDataVencimentoEmprestimo(PRAZO_ENTREGA_DIAS);
+    this.quantidadeLivrosEmprestados = 0;
   }
 
   private void verificarDebito(double debito) throws IllegalArgumentException {
@@ -34,9 +28,7 @@ public class ContaBiblioteca {
     }
   }
 
-  public double getDebito() {
-    return this.debito;
-  }
+  public double getDebito() { return this.debito; }
 
   public void setDebito(double debito) throws IllegalArgumentException {
     verificarDebito(debito);
@@ -49,7 +41,6 @@ public class ContaBiblioteca {
     verificarDebito(valor);
 
     this.debito -= valor;
-
   }
 
   private void verificarLivroEmprestado(Object obj) throws RuntimeException {
@@ -67,11 +58,14 @@ public class ContaBiblioteca {
   // função para emprestar livro
   public void emprestarLivro(int id) throws RuntimeException {
     if (this.debito < 0) {
-      throw new RuntimeException("Você está com saldo devedor, por favor resolva suas pedências");
+      throw new RuntimeException(
+          "Você está com saldo devedor, por favor resolva suas pedências");
     }
 
     if (this.idLivroAtualEmprestado != null) {
-      throw new RuntimeException("Você já tem livro emprestado, por favor, devolva para continuar o empréstimo atual.");
+      throw new RuntimeException("Você já tem livro emprestado, por favor, "
+                                 +
+                                 "devolva para continuar o empréstimo atual.");
     }
 
     this.quantidadeLivrosEmprestados++;
@@ -80,16 +74,19 @@ public class ContaBiblioteca {
   }
 
   // função para devolver o livro
-  public void devolverLivro(int id) throws IllegalArgumentException, RuntimeException {
-    verificarLivroEmprestado(this.idLivroAtualEmprestado); // verifica se tem livro emprestado
+  public void devolverLivro(int id)
+      throws IllegalArgumentException, RuntimeException {
+    verificarLivroEmprestado(
+        this.idLivroAtualEmprestado); // verifica se tem livro emprestado
 
     if (this.idLivroAtualEmprestado != id) { // verifica se são iguais
-      throw new RuntimeException("O Livro que você quer devolver, não é o emprestado");
+      throw new RuntimeException(
+          "O Livro que você quer devolver, não é o emprestado");
     }
 
-    this.idLivroAtualEmprestado = null; // indicando que não tem livro emprestado
+    this.idLivroAtualEmprestado =
+        null; // indicando que não tem livro emprestado
     this.dataVencimentoEmprestimo = null;
-
   }
 
   // função para obter a data de devolução do livro
@@ -104,16 +101,14 @@ public class ContaBiblioteca {
 
     LocalDate dataObj = LocalDate.now();
 
-    dataObj.plusDays(8);
+    // dataObj.plusDays(8);
 
     DateTimeFormatter formatarData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    return dataObj.format(formatarData);
-
+    return dataObj.plusDays(tempoEmprestimo).format(formatarData);
   }
 
   public int getQuantidadeLivrosEmprestados() {
     return this.quantidadeLivrosEmprestados;
   }
-
 }
