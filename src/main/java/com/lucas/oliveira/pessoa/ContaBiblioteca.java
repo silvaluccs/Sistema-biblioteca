@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 // classe responsável pela conta da biblioteca
-public class ContaBiblioteca {
+class ContaBiblioteca {
 
   private double debito;
   private Integer idLivroAtualEmprestado;
