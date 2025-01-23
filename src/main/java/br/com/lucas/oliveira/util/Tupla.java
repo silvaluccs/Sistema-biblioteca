@@ -1,11 +1,11 @@
 package br.com.lucas.oliveira.util;
 
-class Tupla<F, S> {
+public class Tupla<F, S> {
 
   private F primeiro;
   private S secondo;
 
-  Tupla(F primeiro, S secondo) {
+  public Tupla(F primeiro, S secondo) {
     this.primeiro = primeiro;
     this.secondo = secondo;
   }
