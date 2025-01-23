@@ -1,4 +1,4 @@
-package com.lucas.oliveira.pessoa;
+package br.com.lucas.oliveira.model;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

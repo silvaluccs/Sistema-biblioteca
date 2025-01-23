@@ -1,10 +1,12 @@
-package com.lucas.oliveira.pessoa;
+package br.com.lucas.oliveira.service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import br.com.lucas.oliveira.model.Pessoa;
 
 // classe para testar a classe pessoa e suas funcionabilidades
 public class PessoaTest {

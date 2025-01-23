@@ -1,6 +1,7 @@
-package com.lucas.oliveira.login;
+package br.com.lucas.oliveira.model;
 
-import com.lucas.oliveira.pessoa.Pessoa;
+import br.com.lucas.oliveira.util.Tupla;
+
 import java.util.HashMap;
 import java.util.Map;
 

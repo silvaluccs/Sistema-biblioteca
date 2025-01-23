@@ -1,6 +1,8 @@
-package com.lucas.oliveira.login;
+package br.com.lucas.oliveira.service;
 
-import com.lucas.oliveira.pessoa.Pessoa;
+import br.com.lucas.oliveira.model.Login;
+import br.com.lucas.oliveira.model.Pessoa;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

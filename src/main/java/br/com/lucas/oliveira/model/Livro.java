@@ -1,4 +1,4 @@
-package com.lucas.oliveira.livro;
+package br.com.lucas.oliveira.model;
 
 public class Livro {
 

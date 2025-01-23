@@ -1,4 +1,4 @@
-package com.lucas.oliveira.pessoa;
+package br.com.lucas.oliveira.model;
 
 public class Pessoa {
 

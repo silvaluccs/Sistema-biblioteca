@@ -1,9 +1,9 @@
-package com.lucas.oliveira.livro;
-
-import com.lucas.oliveira.livro.Livro;
+package br.com.lucas.oliveira.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
+
+import br.com.lucas.oliveira.model.Livro;
 
 public class LivroTest {
 

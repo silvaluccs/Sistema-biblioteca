@@ -1,4 +1,4 @@
-package com.lucas.oliveira.login;
+package br.com.lucas.oliveira.util;
 
 class Tupla<F, S> {
 

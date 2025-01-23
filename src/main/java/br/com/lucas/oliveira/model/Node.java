@@ -1,6 +1,4 @@
-package com.lucas.oliveira.arvoreavl;
-
-import com.lucas.oliveira.livro.Livro;
+package br.com.lucas.oliveira.model;
 
 class Node {
   public Node esquerda, direita;

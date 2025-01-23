@@ -1,7 +1,8 @@
-package com.lucas.oliveira.arvoreavl;
+package br.com.lucas.oliveira.service;
 
-import com.lucas.oliveira.arvoreavl.ArvoreAvl;
-import com.lucas.oliveira.livro.Livro;
+import br.com.lucas.oliveira.model.ArvoreAvl;
+import br.com.lucas.oliveira.model.Livro;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
