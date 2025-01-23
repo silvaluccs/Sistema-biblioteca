@@ -6,7 +6,6 @@ public interface ContaBibliotecaRepository {
 	
 	ContaBiblioteca buscar(Long id);
 	ContaBiblioteca salvar(ContaBiblioteca contaBiblioteca);
-	ContaBiblioteca atualizar(ContaBiblioteca contaBiblioteca);
 	void remover(ContaBiblioteca contaBiblioteca);
 
 }

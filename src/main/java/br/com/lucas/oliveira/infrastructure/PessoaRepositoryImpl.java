@@ -21,7 +21,7 @@ public class PessoaRepositoryImpl implements PessoaRepository {
 	private EntityManager manager;
 	
 	/*
-	 * Método para listar uma pessoa do banco de dados
+	 * Método para listar as pessoas do banco de dados
 	 */
 	@Override
 	public List<Pessoa> listar() {
@@ -45,20 +45,6 @@ public class PessoaRepositoryImpl implements PessoaRepository {
 		return manager.merge(pessoa);
 	}
 
-	/*
-	 * Método para atualizar uma pessoa do banco de dados
-	 */
-	@Transactional
-	@Override
-	public Pessoa atualizar(Pessoa pessoa) {
-		
-		Pessoa pessoaParaAtualizar = buscar(pessoa.getId());
-		
-		if (pessoaParaAtualizar != null) {
-			return salvar(pessoa);
-		}
-		return null;
-	}
 
 	/*
 	 * Método para remover uma pessoa do banco de dados

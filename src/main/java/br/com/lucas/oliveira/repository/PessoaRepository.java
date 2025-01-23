@@ -9,7 +9,6 @@ public interface PessoaRepository {
 	List<Pessoa> listar();
 	Pessoa buscar(Long id);
 	Pessoa salvar(Pessoa pessoa);
-	Pessoa atualizar(Pessoa pessoa);
 	void remover(Pessoa pessoa);
 
 }
