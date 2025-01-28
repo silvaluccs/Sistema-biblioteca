@@ -44,11 +44,10 @@ public class PessoaController {
 	}
 	
 	
-	@GetMapping("/logados")
-	public ResponseEntity<List<PessoaDTO>> buscarLogados() {
+	@GetMapping("/logados/{statusLogadoProcurado}")
+	public ResponseEntity<List<PessoaDTO>> buscarLogados(@PathVariable boolean statusLogadoProcurado) {
 		
 		try {
-			boolean statusLogadoProcurado = true;
 			return ResponseEntity.ok(pessoaService.buscarLogados(statusLogadoProcurado));
 		}
 		catch (EntidadeNulaException e) {
@@ -57,19 +56,22 @@ public class PessoaController {
 		
 	}
 	
-	
-	@GetMapping("/nao-logados")
-	public ResponseEntity<List<PessoaDTO>> buscarNaoLogados() {
-
-		try {
-			boolean statusLogadoProcurado = false;
-			return ResponseEntity.ok(pessoaService.buscarLogados(statusLogadoProcurado));
-		} catch (EntidadeNulaException e) {
-			return ResponseEntity.notFound().build();
-		}
-
-	}
-
-	
+//	
+//	@GetMapping("/nao-logados")
+//	public ResponseEntity<List<PessoaDTO>> buscarNaoLogados() {
+//
+//		try {
+//			boolean statusLogadoProcurado = false;
+//			return ResponseEntity.ok(pessoaService.buscarLogados(statusLogadoProcurado));
+//		} catch (EntidadeNulaException e) {
+//			return ResponseEntity.notFound().build();
+//		}
+//
+//	}
+//	
+//	
+//	@GetMapping("/logados/{")
+//
+//	
 	
 }
