@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import br.com.lucas.oliveira.dto.PessoaDTO;
 import br.com.lucas.oliveira.exception.EntidadeNulaException;
@@ -77,6 +76,28 @@ public class PessoaService {
             throw new EntidadeNulaException("Pessoa não pode ser nula");
         }	
 	
+	}
+	
+	/*
+	 * Função que busca se a pessoa está logada
+	 * 
+	 * @param id - Id da pessoa
+	 * 
+	 * @return boolean - Se a pessoa está logada
+	 * 
+	 * @throws EntidadeNulaException - Caso a pessoa seja nula
+	 */
+	
+	public boolean buscarLogado(Long id) throws EntidadeNulaException {
+		
+		Pessoa pessoa = pessoaRepository.buscar(id);
+		
+		if (pessoa == null) {
+			throw new EntidadeNulaException("Pessoa não encontrada");
+		}
+		
+		return pessoa.getContaBiblioteca().getLogado();
+		
 	}
 	
 

@@ -38,9 +38,21 @@ public class PessoaController {
 			return ResponseEntity.ok(pessoaService.buscar(pessoaId));
 		} 
 		catch (EntidadeNulaException e) {
-			return ResponseEntity.badRequest().header("Erro", e.getMessage()).build();
+			return ResponseEntity.notFound().build();
 		}
 		
+	}
+	
+	@GetMapping("{pessoaId}/logado")
+	public ResponseEntity<String> buscarLogado(@PathVariable Long pessoaId) {
+
+		try {
+			boolean logado = pessoaService.buscarLogado(pessoaId);
+			return ResponseEntity.ok(String.format("Pessoa %s logada", logado ? "está" : "não está"));
+		} catch (EntidadeNulaException e) {
+			return ResponseEntity.notFound().build();
+		}
+
 	}
 	
 	
@@ -55,23 +67,6 @@ public class PessoaController {
 		}
 		
 	}
-	
-//	
-//	@GetMapping("/nao-logados")
-//	public ResponseEntity<List<PessoaDTO>> buscarNaoLogados() {
-//
-//		try {
-//			boolean statusLogadoProcurado = false;
-//			return ResponseEntity.ok(pessoaService.buscarLogados(statusLogadoProcurado));
-//		} catch (EntidadeNulaException e) {
-//			return ResponseEntity.notFound().build();
-//		}
-//
-//	}
-//	
-//	
-//	@GetMapping("/logados/{")
-//
-//	
-	
 }
+	
+	
