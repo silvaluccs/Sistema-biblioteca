@@ -57,24 +57,26 @@ public class PessoaService {
 	
 	
 	/*
-	 * Função que verifica se a pessoa está logada
+	 * Função que busca todas as pessoas logadas
 	 * 
-	 * @param id - Id da pessoa
+	 * @param status - Status da pessoa
 	 * 
-	 * @return String - Mensagem informando se a pessoa está logada
+	 * @return List<PessoaDTO> - Lista de pessoas logadas
 	 * 
 	 * @throws EntidadeNulaException - Caso a pessoa seja nula
 	 */
-	
-	public String buscarLogado(Long id) throws EntidadeNulaException {
-	
-		PessoaDTO pessoa = buscar(id);
-		
-		boolean logado = pessoa.getContaBiblioteca().isLogado();
-		
-		return String.format("Pessoa %s está %s", pessoa.getNome(), 
-				logado ? "logada" : "deslogada");
+	public List<PessoaDTO> buscarLogados(boolean status) throws EntidadeNulaException {
+
+		try {
 			
+			return pessoaRepository.listar().stream()
+                    .filter(pessoa -> pessoa.getContaBiblioteca().getLogado() == status)
+                    .map(pessoa -> PessoaDTO.toDTO(pessoa)).toList();
+            
+        } catch (IllegalArgumentException e) {
+            throw new EntidadeNulaException("Pessoa não pode ser nula");
+        }	
+	
 	}
 	
 

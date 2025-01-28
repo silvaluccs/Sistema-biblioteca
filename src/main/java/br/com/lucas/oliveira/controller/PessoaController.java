@@ -3,7 +3,6 @@ package br.com.lucas.oliveira.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,16 +44,32 @@ public class PessoaController {
 	}
 	
 	
-	@GetMapping("/{pessoaId}/logado")
-	public ResponseEntity<String> buscarLogado(@PathVariable Long pessoaId) {
+	@GetMapping("/logados")
+	public ResponseEntity<List<PessoaDTO>> buscarLogados() {
 		
 		try {
-			return ResponseEntity.ok(pessoaService.buscarLogado(pessoaId));
-		} catch (EntidadeNulaException e) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+			boolean statusLogadoProcurado = true;
+			return ResponseEntity.ok(pessoaService.buscarLogados(statusLogadoProcurado));
+		}
+		catch (EntidadeNulaException e) {
+			return ResponseEntity.notFound().build();
 		}
 		
 	}
+	
+	
+	@GetMapping("/nao-logados")
+	public ResponseEntity<List<PessoaDTO>> buscarNaoLogados() {
+
+		try {
+			boolean statusLogadoProcurado = false;
+			return ResponseEntity.ok(pessoaService.buscarLogados(statusLogadoProcurado));
+		} catch (EntidadeNulaException e) {
+			return ResponseEntity.notFound().build();
+		}
+
+	}
+
 	
 	
 }
