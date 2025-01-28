@@ -1,0 +1,43 @@
+-- Inserir registros na tabela conta_biblioteca
+insert into conta_biblioteca (id, login, senha, saldo, logado) values (1, 'johndoe1', 'senhaJd@123', 100, false);
+insert into conta_biblioteca (id, login, senha, saldo, logado) values (2, 'mariaoliveira2', 'senhaMo@456', 100, true);
+insert into conta_biblioteca (id, login, senha, saldo, logado) values (3, 'pedroalmeida3', 'senhaPa@789', 100, false);
+insert into conta_biblioteca (id, login, senha, saldo, logado) values (4, 'lucasrodrigues4', 'senhaLu@321', 100, true);
+insert into conta_biblioteca (id, login, senha, saldo, logado) values (5, 'carolinasilva5', 'senhaCa@654', 100, false);
+insert into conta_biblioteca (id, login, senha, saldo, logado) values (6, 'franciscocosta6', 'senhaFc@987', 100, true);
+insert into conta_biblioteca (id, login, senha, saldo, logado) values (7, 'beatrizsantos7', 'senhaBs@654', 100, false);
+insert into conta_biblioteca (id, login, senha, saldo, logado) values (8, 'josefaria8', 'senhaJf@987', 100, true);
+insert into conta_biblioteca (id, login, senha, saldo, logado) values (9, 'marciapereira9', 'senhaMp@123', 100, false);
+insert into conta_biblioteca (id, login, senha, saldo, logado) values (10, 'renatobarbosa10', 'senhaRb@456', 100, true);
+insert into conta_biblioteca (id, login, senha, saldo, logado) values (11, 'alinedosanjos11', 'senhaAd@789', 100, false);
+insert into conta_biblioteca (id, login, senha, saldo, logado) values (12, 'gustavocosta12', 'senhaGc@321', 100, true);
+insert into conta_biblioteca (id, login, senha, saldo, logado) values (13, 'larissamelo13', 'senhaLm@654', 100, false);
+insert into conta_biblioteca (id, login, senha, saldo, logado) values (14, 'brunojunior14', 'senhaBj@987', 100, true);
+insert into conta_biblioteca (id, login, senha, saldo, logado) values (15, 'leticiagomes15', 'senhaLg@123', 100, false);
+insert into conta_biblioteca (id, login, senha, saldo, logado) values (16, 'fabianelima16', 'senhaFl@456', 100, true);
+insert into conta_biblioteca (id, login, senha, saldo, logado) values (17, 'marceloalves17', 'senhaMa@789', 100, false);
+insert into conta_biblioteca (id, login, senha, saldo, logado) values (18, 'alineoliveira18', 'senhaAo@321', 100, true);
+insert into conta_biblioteca (id, login, senha, saldo, logado) values (19, 'emiliamelo19', 'senhaEm@654', 100, false);
+insert into conta_biblioteca (id, login, senha, saldo, logado) values (20, 'victormartins20', 'senhaVm@987', 100, true);
+
+-- Inserir registros na tabela pessoa
+insert into pessoa (nome, idade, cpf, conta_biblioteca_id) values ('John Doe', 28, '123.456.789-01', 1);
+insert into pessoa (nome, idade, cpf, conta_biblioteca_id) values ('Maria Oliveira', 34, '234.567.890-12', 2);
+insert into pessoa (nome, idade, cpf, conta_biblioteca_id) values ('Pedro Almeida', 25, '345.678.901-23', 3);
+insert into pessoa (nome, idade, cpf, conta_biblioteca_id) values ('Lucas Rodrigues', 30, '456.789.012-34', 4);
+insert into pessoa (nome, idade, cpf, conta_biblioteca_id) values ('Carolina Silva', 22, '567.890.123-45', 5);
+insert into pessoa (nome, idade, cpf, conta_biblioteca_id) values ('Francisco Costa', 27, '678.901.234-56', 6);
+insert into pessoa (nome, idade, cpf, conta_biblioteca_id) values ('Beatriz Santos', 24, '789.012.345-67', 7);
+insert into pessoa (nome, idade, cpf, conta_biblioteca_id) values ('José Faria', 33, '890.123.456-78', 8);
+insert into pessoa (nome, idade, cpf, conta_biblioteca_id) values ('Márcia Pereira', 29, '901.234.567-89', 9);
+insert into pessoa (nome, idade, cpf, conta_biblioteca_id) values ('Renato Barbosa', 31, '012.345.678-90', 10);
+insert into pessoa (nome, idade, cpf, conta_biblioteca_id) values ('Aline dos Anjos', 26, '123.456.789-11', 11);
+insert into pessoa (nome, idade, cpf, conta_biblioteca_id) values ('Gustavo Costa', 28, '234.567.890-12', 12);
+insert into pessoa (nome, idade, cpf, conta_biblioteca_id) values ('Larissa Melo', 32, '345.678.901-23', 13);
+insert into pessoa (nome, idade, cpf, conta_biblioteca_id) values ('Bruno Junior', 35, '456.789.012-34', 14);
+insert into pessoa (nome, idade, cpf, conta_biblioteca_id) values ('Letícia Gomes', 23, '567.890.123-45', 15);
+insert into pessoa (nome, idade, cpf, conta_biblioteca_id) values ('Fabiane Lima', 30, '678.901.234-56', 16);
+insert into pessoa (nome, idade, cpf, conta_biblioteca_id) values ('Marcelo Alves', 27, '789.012.345-67', 17);
+insert into pessoa (nome, idade, cpf, conta_biblioteca_id) values ('Aline Oliveira', 25, '890.123.456-78', 18);
+insert into pessoa (nome, idade, cpf, conta_biblioteca_id) values ('Emília Melo', 24, '901.234.567-89', 19);
+insert into pessoa (nome, idade, cpf, conta_biblioteca_id) values ('Victor Martins', 29, '012.345.678-90', 20);
