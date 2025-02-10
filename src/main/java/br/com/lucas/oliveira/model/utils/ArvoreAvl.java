@@ -1,4 +1,8 @@
-package br.com.lucas.oliveira.model;
+package br.com.lucas.oliveira.model.utils;
+
+import br.com.lucas.oliveira.model.Livro;
+import java.util.ArrayList;
+import java.util.List;
 
 // classe responsável pela árvore avl que gerencia os livros
 public class ArvoreAvl {
@@ -142,7 +146,7 @@ public class ArvoreAvl {
   // função recursiva para remover um livro da árvore com base no id
   // função remove por atualização de ponteiros
 
-  public void removerLivro(Livro livro) throws  IllegalArgumentException {
+  public void removerLivro(Livro livro) throws IllegalArgumentException {
     this.root = remover(livro, this.root);
   }
 
@@ -198,14 +202,21 @@ public class ArvoreAvl {
     return rotacionarArvore(guardarRaiz, livro);
   }
 
-
-  public boolean pesquisarLivro(Livro livro) {
+  public Livro pesquisarLivro(Livro livro) {
     return pesquisar(livro, this.root);
   }
 
-  private boolean pesquisar(Livro livro, Node raiz) {
+  public Livro pesquisarLivro(Long id) {
+
+    Livro livro = new Livro();
+    livro.setId(id);
+
+    return pesquisar(livro, this.root);
+  }
+
+  private Livro pesquisar(Livro livro, Node raiz) {
     if (is_empty(raiz)) { // caso base, livro não encontrado
-      return false;
+      return null;
     }
 
     if (livro.getId() < raiz.livro.getId()) {
@@ -213,14 +224,14 @@ public class ArvoreAvl {
     } else if (livro.getId() > raiz.livro.getId()) {
       return pesquisar(livro, raiz.direita); // procurando nos ramos da direita
     } else {
-      return true; // caso tenha achado o livro na coleção
+      return raiz.livro; // caso tenha achado o livro na coleção
     }
 
   }
 
   // função recursiva para atualizar um livro
 
-  public void atualizarLivro  (Livro novoLivro) throws IllegalArgumentException {
+  public void atualizarLivro(Livro novoLivro) throws IllegalArgumentException {
     this.root = atualizar(novoLivro, this.root);
   }
 
@@ -251,17 +262,18 @@ public class ArvoreAvl {
 
   }
 
-  public void preOrder(Node raiz) {
-
-    if (raiz != null) {
-
-      System.out.println(raiz.livro.getTitulo());
-      preOrder(raiz.esquerda);
-      preOrder(raiz.direita);
-
-    }
-
+  public List<Livro> toList() {
+    return preOrder(this.root);
   }
 
+  private List<Livro> preOrder(Node raiz) {
+    List<Livro> livros = new ArrayList<>();
+    if (raiz != null) {
+      livros.add(raiz.livro);
+      livros.addAll(preOrder(raiz.esquerda));
+      livros.addAll(preOrder(raiz.direita));
+    }
+    return livros;
+  }
 
 }
