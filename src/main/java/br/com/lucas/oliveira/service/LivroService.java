@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import br.com.lucas.oliveira.model.utils.ArvoreAvl;
 import br.com.lucas.oliveira.repository.LivroRepository;
+import jakarta.annotation.PostConstruct;
 import br.com.lucas.oliveira.exception.EntidadeExistenteException;
 import br.com.lucas.oliveira.exception.EntidadeNaoEncontradaException;
 import br.com.lucas.oliveira.model.Livro;
@@ -18,13 +19,10 @@ public class LivroService {
   @Autowired
   private LivroRepository livroRepository;
 
-  public LivroService() {
-    carregarArvore();
-  }
-
   /*
    * Método para carregar a árvore de livros
    */
+  @PostConstruct
   private void carregarArvore() {
     arvoreAvl = new ArvoreAvl();
     livroRepository.listar().forEach(livro -> arvoreAvl.inserirLivro(livro));

@@ -1,7 +1,6 @@
 package br.com.lucas.oliveira.model;
 
-import org.springframework.data.annotation.Id;
-
+import jakarta.persistence.Id;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,8 +9,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
-@Entity
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Entity
 public class Livro {
 
   @EqualsAndHashCode.Include
