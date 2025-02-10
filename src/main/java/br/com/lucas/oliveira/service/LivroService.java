@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import br.com.lucas.oliveira.model.utils.ArvoreAvl;
 import br.com.lucas.oliveira.repository.LivroRepository;
 import br.com.lucas.oliveira.exception.EntidadeExistenteException;
+import br.com.lucas.oliveira.exception.EntidadeNaoEncontradaException;
 import br.com.lucas.oliveira.model.Livro;
 
 @Service
@@ -28,6 +29,9 @@ public class LivroService {
     livroRepository.listar().forEach(livro -> arvoreAvl.inserirLivro(livro));
   }
 
+  /*
+   * Método para salvar um livro
+   */
   public Livro salvar(Livro livro) throws EntidadeExistenteException {
 
     try {
@@ -39,7 +43,17 @@ public class LivroService {
 
   }
 
-  public Livro buscar(Long id) {
+  /*
+   * Método para buscar um livro
+   */
+  public Livro buscar(Long id) throws EntidadeNaoEncontradaException {
+
+    if (arvoreAvl.pesquisarLivro(id)) {
+      return livroRepository.buscar(id);
+    }
+
+    throw new EntidadeNaoEncontradaException(
+        String.format("Erro: O livro %s não foi encontrado no banco de dados.", id));
 
   }
 

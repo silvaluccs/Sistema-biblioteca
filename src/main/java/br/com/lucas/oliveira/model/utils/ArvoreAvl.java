@@ -200,11 +200,11 @@ public class ArvoreAvl {
     return rotacionarArvore(guardarRaiz, livro);
   }
 
-  public boolean pesquisarLivro(Livro livro) {
+  public Livro pesquisarLivro(Livro livro) {
     return pesquisar(livro, this.root);
   }
 
-  public boolean pesquisarLivro(Long id) {
+  public Livro pesquisarLivro(Long id) {
 
     Livro livro = new Livro();
     livro.setId(id);
@@ -212,9 +212,9 @@ public class ArvoreAvl {
     return pesquisar(livro, this.root);
   }
 
-  private boolean pesquisar(Livro livro, Node raiz) {
+  private Livro pesquisar(Livro livro, Node raiz) {
     if (is_empty(raiz)) { // caso base, livro não encontrado
-      return false;
+      return null;
     }
 
     if (livro.getId() < raiz.livro.getId()) {
@@ -222,7 +222,7 @@ public class ArvoreAvl {
     } else if (livro.getId() > raiz.livro.getId()) {
       return pesquisar(livro, raiz.direita); // procurando nos ramos da direita
     } else {
-      return true; // caso tenha achado o livro na coleção
+      return raiz.livro; // caso tenha achado o livro na coleção
     }
 
   }
