@@ -48,12 +48,14 @@ public class LivroService {
    */
   public Livro buscar(Long id) throws EntidadeNaoEncontradaException {
 
-    if (arvoreAvl.pesquisarLivro(id)) {
-      return livroRepository.buscar(id);
+    Livro livro = arvoreAvl.pesquisarLivro(id);
+
+    if (livro == null) {
+      throw new EntidadeNaoEncontradaException(
+          String.format("Erro: O livro %s não foi encontrado no banco de dados.", id));
     }
 
-    throw new EntidadeNaoEncontradaException(
-        String.format("Erro: O livro %s não foi encontrado no banco de dados.", id));
+    return livro;
 
   }
 
