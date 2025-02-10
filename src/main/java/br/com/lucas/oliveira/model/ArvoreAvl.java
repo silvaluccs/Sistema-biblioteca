@@ -142,7 +142,7 @@ public class ArvoreAvl {
   // função recursiva para remover um livro da árvore com base no id
   // função remove por atualização de ponteiros
 
-  public void removerLivro(Livro livro) throws  IllegalArgumentException {
+  public void removerLivro(Livro livro) throws IllegalArgumentException {
     this.root = remover(livro, this.root);
   }
 
@@ -198,7 +198,6 @@ public class ArvoreAvl {
     return rotacionarArvore(guardarRaiz, livro);
   }
 
-
   public boolean pesquisarLivro(Livro livro) {
     return pesquisar(livro, this.root);
   }
@@ -220,7 +219,7 @@ public class ArvoreAvl {
 
   // função recursiva para atualizar um livro
 
-  public void atualizarLivro  (Livro novoLivro) throws IllegalArgumentException {
+  public void atualizarLivro(Livro novoLivro) throws IllegalArgumentException {
     this.root = atualizar(novoLivro, this.root);
   }
 
@@ -262,6 +261,5 @@ public class ArvoreAvl {
     }
 
   }
-
 
 }

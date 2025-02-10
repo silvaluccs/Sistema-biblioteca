@@ -33,4 +33,7 @@ public class Livro {
 
   @JoinColumn(nullable = false)
   private int numeroPaginas;
+
+  @JoinColumn(nullable = false)
+  private int quantidadeDeEmprestimos;
 }
