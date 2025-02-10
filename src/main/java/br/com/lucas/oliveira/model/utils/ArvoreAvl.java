@@ -1,4 +1,6 @@
-package br.com.lucas.oliveira.model;
+package br.com.lucas.oliveira.model.utils;
+
+import br.com.lucas.oliveira.model.Livro;
 
 // classe responsável pela árvore avl que gerencia os livros
 public class ArvoreAvl {

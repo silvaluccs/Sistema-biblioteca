@@ -1,4 +1,6 @@
-package br.com.lucas.oliveira.model;
+package br.com.lucas.oliveira.model.utils;
+
+import br.com.lucas.oliveira.model.Livro;
 
 class Node {
   public Node esquerda, direita;
@@ -11,5 +13,7 @@ class Node {
     this.esquerda = this.direita = null;
   }
 
-  Node() { this(null); }
+  Node() {
+    this(null);
+  }
 }
