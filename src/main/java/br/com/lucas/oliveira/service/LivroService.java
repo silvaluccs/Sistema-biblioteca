@@ -3,6 +3,7 @@ package br.com.lucas.oliveira.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import br.com.lucas.oliveira.model.utils.ArvoreAvl;
 import br.com.lucas.oliveira.repository.LivroRepository;
 import br.com.lucas.oliveira.exception.EntidadeExistenteException;
@@ -59,7 +60,26 @@ public class LivroService {
 
   }
 
-  public List<Livro> listarPorAutor(String autor) throws EntidadeNaoEncontradaException {
+  public List<Livro> listarPorAutor(String autor) {
+
+    return arvoreAvl.toList().stream()
+        .filter(livro -> livro.getNomeAutor().equalsIgnoreCase(autor)).toList();
+
+  }
+
+  public List<Livro> listarPorAnoPublicacao(int anoPublicacao) {
+
+    return arvoreAvl.toList().stream()
+        .filter(livro -> livro.getAnoPublicacao() == anoPublicacao).toList();
+
+  }
+
+  public List<Livro> listarLivrosMaisEmprestados() {
+
+    return arvoreAvl.toList().stream()
+        .sorted((livro1, livro2) -> Integer.compare(livro2.getQuantidadeDeEmprestimos(),
+            livro1.getQuantidadeDeEmprestimos()))
+        .toList();
 
   }
 

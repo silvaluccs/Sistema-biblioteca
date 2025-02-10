@@ -26,7 +26,7 @@ public class Livro {
   private String titulo;
 
   @JoinColumn(nullable = false)
-  private int anoPublicao;
+  private int anoPublicacao;
 
   @JoinColumn(nullable = false)
   private String ISNB;
