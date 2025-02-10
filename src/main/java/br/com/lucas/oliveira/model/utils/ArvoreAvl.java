@@ -204,6 +204,14 @@ public class ArvoreAvl {
     return pesquisar(livro, this.root);
   }
 
+  public boolean pesquisarLivro(Long id) {
+
+    Livro livro = new Livro();
+    livro.setId(id);
+
+    return pesquisar(livro, this.root);
+  }
+
   private boolean pesquisar(Livro livro, Node raiz) {
     if (is_empty(raiz)) { // caso base, livro não encontrado
       return false;

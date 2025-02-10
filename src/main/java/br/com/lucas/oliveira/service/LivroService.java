@@ -39,4 +39,8 @@ public class LivroService {
 
   }
 
+  public Livro buscar(Long id) {
+
+  }
+
 }
