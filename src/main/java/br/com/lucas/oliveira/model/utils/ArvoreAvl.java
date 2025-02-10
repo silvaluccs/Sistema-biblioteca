@@ -1,6 +1,8 @@
 package br.com.lucas.oliveira.model.utils;
 
 import br.com.lucas.oliveira.model.Livro;
+import java.util.ArrayList;
+import java.util.List;
 
 // classe responsável pela árvore avl que gerencia os livros
 public class ArvoreAvl {
@@ -260,16 +262,18 @@ public class ArvoreAvl {
 
   }
 
-  public void preOrder(Node raiz) {
+  public List<Livro> toList() {
+    return preOrder(this.root);
+  }
 
+  private List<Livro> preOrder(Node raiz) {
+    List<Livro> livros = new ArrayList<>();
     if (raiz != null) {
-
-      System.out.println(raiz.livro.getTitulo());
-      preOrder(raiz.esquerda);
-      preOrder(raiz.direita);
-
+      livros.add(raiz.livro);
+      livros.addAll(preOrder(raiz.esquerda));
+      livros.addAll(preOrder(raiz.direita));
     }
-
+    return livros;
   }
 
 }

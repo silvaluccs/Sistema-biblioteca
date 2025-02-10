@@ -59,4 +59,8 @@ public class LivroService {
 
   }
 
+  public List<Livro> listarPorAutor(String autor) throws EntidadeNaoEncontradaException {
+
+  }
+
 }
