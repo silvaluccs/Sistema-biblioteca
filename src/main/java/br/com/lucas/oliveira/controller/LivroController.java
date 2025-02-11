@@ -34,4 +34,33 @@ public class LivroController {
 
   }
 
+  /*
+   * Método para listar os livros de um determinado ano de publicação
+   * 
+   * @param anoPublicacao - Ano de publicação
+   * 
+   * @return - Lista de livros do ano de publicação
+   */
+  @GetMapping("/{anoPublicacao}")
+  public ResponseEntity<List<LivroDTO>> listarPorAnoPublicacao(@PathVariable int anoPublicacao) {
+
+    List<LivroDTO> livros = livroService.listarPorAnoPublicacao(anoPublicacao);
+
+    return ResponseEntity.ok(livros);
+
+  }
+
+  /*
+   * Método para listar os livros mais emprestados
+   * 
+   * @return - Lista de livros mais emprestados
+   */
+  @GetMapping("/maisEmprestados")
+  public ResponseEntity<List<LivroDTO>> listarLivrosMaisEmprestados() {
+
+    List<LivroDTO> livros = livroService.listarLivrosMaisEmprestados();
+
+    return ResponseEntity.ok(livros);
+
+  }
 }
