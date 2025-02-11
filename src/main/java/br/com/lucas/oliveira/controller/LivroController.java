@@ -25,7 +25,7 @@ public class LivroController {
    * 
    * @return - Lista de livros do autor
    */
-  @GetMapping("/{nomeAutor}")
+  @GetMapping("/autor/{nomeAutor}")
   public ResponseEntity<List<LivroDTO>> listarPorAutor(@PathVariable String nomeAutor) {
 
     List<LivroDTO> livros = livroService.listarPorAutor(nomeAutor);
@@ -41,7 +41,7 @@ public class LivroController {
    * 
    * @return - Lista de livros do ano de publicação
    */
-  @GetMapping("/{anoPublicacao}")
+  @GetMapping("/ano/{anoPublicacao}")
   public ResponseEntity<List<LivroDTO>> listarPorAnoPublicacao(@PathVariable int anoPublicacao) {
 
     List<LivroDTO> livros = livroService.listarPorAnoPublicacao(anoPublicacao);

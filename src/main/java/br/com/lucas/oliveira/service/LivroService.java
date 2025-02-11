@@ -73,8 +73,8 @@ public class LivroService {
   public List<LivroDTO> listarPorAutor(String autor) {
 
     return arvoreAvl.toList().stream()
-        .filter(livro -> livro.getNomeAutor().equalsIgnoreCase(autor)).map(LivroDTO::toDTO)
-        .toList();
+        .filter(livro -> livro.getNomeAutor().contains(autor))
+        .map(LivroDTO::toDTO).toList();
 
   }
 
