@@ -10,6 +10,7 @@ import jakarta.annotation.PostConstruct;
 import br.com.lucas.oliveira.exception.EntidadeExistenteException;
 import br.com.lucas.oliveira.exception.EntidadeNaoEncontradaException;
 import br.com.lucas.oliveira.model.Livro;
+import br.com.lucas.oliveira.dto.LivroDTO;
 
 @Service
 public class LivroService {
@@ -31,11 +32,15 @@ public class LivroService {
   /*
    * Método para salvar um livro
    */
-  public Livro salvar(Livro livro) throws EntidadeExistenteException {
+  public LivroDTO salvar(Livro livro) throws EntidadeExistenteException {
 
     try {
       arvoreAvl.inserirLivro(livro);
-      return livroRepository.salvar(livro);
+
+      livro = livroRepository.salvar(livro);
+
+      return LivroDTO.toDTO(livro);
+
     } catch (IllegalArgumentException e) {
       throw new EntidadeExistenteException(e.getMessage());
     }
@@ -45,7 +50,7 @@ public class LivroService {
   /*
    * Método para buscar um livro
    */
-  public Livro buscar(Long id) throws EntidadeNaoEncontradaException {
+  public LivroDTO buscar(Long id) throws EntidadeNaoEncontradaException {
 
     Livro livro = arvoreAvl.pesquisarLivro(id);
 
@@ -54,30 +59,32 @@ public class LivroService {
           String.format("Erro: O livro %s não foi encontrado no banco de dados.", id));
     }
 
-    return livro;
+    return LivroDTO.toDTO(livro);
 
   }
 
-  public List<Livro> listarPorAutor(String autor) {
+  public List<LivroDTO> listarPorAutor(String autor) {
 
     return arvoreAvl.toList().stream()
-        .filter(livro -> livro.getNomeAutor().equalsIgnoreCase(autor)).toList();
+        .filter(livro -> livro.getNomeAutor().equalsIgnoreCase(autor)).map(LivroDTO::toDTO)
+        .toList();
 
   }
 
-  public List<Livro> listarPorAnoPublicacao(int anoPublicacao) {
+  public List<LivroDTO> listarPorAnoPublicacao(int anoPublicacao) {
 
     return arvoreAvl.toList().stream()
-        .filter(livro -> livro.getAnoPublicacao() == anoPublicacao).toList();
+        .filter(livro -> livro.getAnoPublicacao() == anoPublicacao).map(LivroDTO::toDTO)
+        .toList();
 
   }
 
-  public List<Livro> listarLivrosMaisEmprestados() {
+  public List<LivroDTO> listarLivrosMaisEmprestados() {
 
     return arvoreAvl.toList().stream()
         .sorted((livro1, livro2) -> Integer.compare(livro2.getQuantidadeDeEmprestimos(),
             livro1.getQuantidadeDeEmprestimos()))
-        .toList();
+        .map(LivroDTO::toDTO).toList();
 
   }
 
