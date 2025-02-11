@@ -2,6 +2,8 @@ package br.com.lucas.oliveira.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.com.lucas.oliveira.service.LivroService;
@@ -12,5 +14,10 @@ public class LivroController {
 
   @Autowired
   private LivroService livroService;
+
+  @GetMapping("/{nomeAutor}")
+  public String listarPorAutor(@PathVariable String nomeAutor) {
+
+  }
 
 }
