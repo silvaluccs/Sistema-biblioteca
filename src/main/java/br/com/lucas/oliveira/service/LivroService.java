@@ -63,6 +63,13 @@ public class LivroService {
 
   }
 
+  /*
+   * Método para listar os livros de um determinado autor
+   * 
+   * @param autor - Nome do autor
+   * 
+   * @return - Lista de livros do autor
+   */
   public List<LivroDTO> listarPorAutor(String autor) {
 
     return arvoreAvl.toList().stream()

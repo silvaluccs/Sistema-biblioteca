@@ -1,5 +1,7 @@
 /home/lucas/java/Sistema-biblioteca/src/main/java/br/com/lucas/oliveira/SistemaBibliotecaApplication.java
+/home/lucas/java/Sistema-biblioteca/src/main/java/br/com/lucas/oliveira/controller/LivroController.java
 /home/lucas/java/Sistema-biblioteca/src/main/java/br/com/lucas/oliveira/controller/PessoaController.java
+/home/lucas/java/Sistema-biblioteca/src/main/java/br/com/lucas/oliveira/dto/LivroDTO.java
 /home/lucas/java/Sistema-biblioteca/src/main/java/br/com/lucas/oliveira/dto/PessoaDTO.java
 /home/lucas/java/Sistema-biblioteca/src/main/java/br/com/lucas/oliveira/exception/EntidadeExistenteException.java
 /home/lucas/java/Sistema-biblioteca/src/main/java/br/com/lucas/oliveira/exception/EntidadeNaoEncontradaException.java
