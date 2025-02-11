@@ -95,4 +95,14 @@ public class LivroService {
 
   }
 
+  public List<LivroDTO> listarPorNumeroPaginas(int numeroPaginas) {
+
+    return arvoreAvl.toList().stream()
+        .filter(livro -> livro.getNumeroPaginas() <= numeroPaginas)
+        .sorted((livro1, livro2) -> Integer.compare(livro2.getNumeroPaginas(),
+            livro1.getNumeroPaginas()))
+        .map(LivroDTO::toDTO).toList();
+
+  }
+
 }

@@ -63,4 +63,14 @@ public class LivroController {
     return ResponseEntity.ok(livros);
 
   }
+
+  @GetMapping("/numeroPaginas/{numeroPaginas}")
+  public ResponseEntity<List<LivroDTO>> listarPorNumeroPaginas(@PathVariable int numeroPaginas) {
+
+    List<LivroDTO> livros = livroService.listarPorNumeroPaginas(numeroPaginas);
+
+    return ResponseEntity.ok(livros);
+
+  }
+
 }
