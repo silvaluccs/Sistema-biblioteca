@@ -41,3 +41,25 @@ insert into pessoa (nome, idade, cpf, conta_biblioteca_id) values ('Marcelo Alve
 insert into pessoa (nome, idade, cpf, conta_biblioteca_id) values ('Aline Oliveira', 25, '890.123.456-78', 18);
 insert into pessoa (nome, idade, cpf, conta_biblioteca_id) values ('Emília Melo', 24, '901.234.567-89', 19);
 insert into pessoa (nome, idade, cpf, conta_biblioteca_id) values ('Victor Martins', 29, '012.345.678-90', 20);
+-- Inserir registros na tabela livro
+insert into livro (nome_autor, titulo, ano_publicacao, isnb, numero_paginas, quantidade_de_emprestimos) values ('George Orwell', '1984', 1949, '9780451524935', 328, 120);
+insert into livro (nome_autor, titulo, ano_publicacao, isnb, numero_paginas, quantidade_de_emprestimos) values ('J.K. Rowling', 'Harry Potter e a Pedra Filosofal', 1997, '9780747532699', 223, 150);
+insert into livro (nome_autor, titulo, ano_publicacao, isnb, numero_paginas, quantidade_de_emprestimos) values ('Harper Lee', 'O Sol é para Todos', 1960, '9780061120084', 281, 85);
+insert into livro (nome_autor, titulo, ano_publicacao, isnb, numero_paginas, quantidade_de_emprestimos) values ('F. Scott Fitzgerald', 'O Grande Gatsby', 1925, '9780743273565', 180, 95);
+insert into livro (nome_autor, titulo, ano_publicacao, isnb, numero_paginas, quantidade_de_emprestimos) values ('J.R.R. Tolkien', 'O Senhor dos Anéis', 1954, '9780261103573', 1137, 200);
+insert into livro (nome_autor, titulo, ano_publicacao, isnb, numero_paginas, quantidade_de_emprestimos) values ('Paulo Coelho', 'O Alquimista', 1988, '9780061122415', 208, 110);
+insert into livro (nome_autor, titulo, ano_publicacao, isnb, numero_paginas, quantidade_de_emprestimos) values ('Gabriel García Márquez', 'Cem Anos de Solidão', 1967, '9780307389732', 417, 75);
+insert into livro (nome_autor, titulo, ano_publicacao, isnb, numero_paginas, quantidade_de_emprestimos) values ('Albert Camus', 'O Estrangeiro', 1942, '9788535916344', 158, 80);
+insert into livro (nome_autor, titulo, ano_publicacao, isnb, numero_paginas, quantidade_de_emprestimos) values ('Jane Austen', 'Orgulho e Preconceito', 1813, '9781503290563', 279, 130);
+insert into livro (nome_autor, titulo, ano_publicacao, isnb, numero_paginas, quantidade_de_emprestimos) values ('George R.R. Martin', 'A Guerra dos Tronos', 1996, '9780553103540', 694, 100);
+insert into livro (nome_autor, titulo, ano_publicacao, isnb, numero_paginas, quantidade_de_emprestimos) values ('Isaac Asimov', 'Fundação', 1951, '9780553293357', 296, 90);
+insert into livro (nome_autor, titulo, ano_publicacao, isnb, numero_paginas, quantidade_de_emprestimos) values ('Markus Zusak', 'A Menina que Roubava Livros', 2005, '9780375842207', 584, 115);
+insert into livro (nome_autor, titulo, ano_publicacao, isnb, numero_paginas, quantidade_de_emprestimos) values ('Leo Tolstoy', 'Guerra e Paz', 1869, '9781853260629', 1225, 50);
+insert into livro (nome_autor, titulo, ano_publicacao, isnb, numero_paginas, quantidade_de_emprestimos) values ('Orson Scott Card', 'Ender’s Game', 1985, '9780812550702', 324, 105);
+insert into livro (nome_autor, titulo, ano_publicacao, isnb, numero_paginas, quantidade_de_emprestimos) values ('Dante Alighieri', 'A Divina Comédia', 1320, '9788501054565', 752, 60);
+insert into livro (nome_autor, titulo, ano_publicacao, isnb, numero_paginas, quantidade_de_emprestimos) values ('Emily Brontë', 'O Morro dos Ventos Uivantes', 1847, '9781851245182', 416, 85);
+insert into livro (nome_autor, titulo, ano_publicacao, isnb, numero_paginas, quantidade_de_emprestimos) values ('Franz Kafka', 'A Metamorfose', 1915, '9788578271069', 128, 95);
+insert into livro (nome_autor, titulo, ano_publicacao, isnb, numero_paginas, quantidade_de_emprestimos) values ('Oscar Wilde', 'O Retrato de Dorian Gray', 1890, '9780141439570', 254, 120);
+insert into livro (nome_autor, titulo, ano_publicacao, isnb, numero_paginas, quantidade_de_emprestimos) values ('E. L. James', 'Cinquenta Tons de Cinza', 2009, '9780307580537', 514, 130);
+insert into livro (nome_autor, titulo, ano_publicacao, isnb, numero_paginas, quantidade_de_emprestimos) values ('Dan Brown', 'O Código Da Vinci', 2003, '9780307474278', 454, 140);
+
