@@ -32,19 +32,12 @@ public class LivroService {
   /*
    * Método para salvar um livro
    */
-  public LivroDTO salvar(Livro livro) throws EntidadeExistenteException {
+  public LivroDTO salvar(Livro livro) {
 
-    try {
-      arvoreAvl.inserirLivro(livro);
+    livro = livroRepository.salvar(livro);
+    arvoreAvl.inserirLivro(livro);
 
-      livro = livroRepository.salvar(livro);
-
-      return LivroDTO.toDTO(livro);
-
-    } catch (IllegalArgumentException e) {
-      throw new EntidadeExistenteException(e.getMessage());
-    }
-
+    return LivroDTO.toDTO(livro);
   }
 
   /*

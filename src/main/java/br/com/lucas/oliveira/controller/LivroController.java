@@ -5,13 +5,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import br.com.lucas.oliveira.dto.LivroDTO;
+import br.com.lucas.oliveira.model.Livro;
 import br.com.lucas.oliveira.service.LivroService;
 
-@Controller
+@RestController
 @RequestMapping("/livros")
 public class LivroController {
 
@@ -68,8 +73,16 @@ public class LivroController {
   public ResponseEntity<List<LivroDTO>> listarPorNumeroPaginas(@PathVariable int numeroPaginas) {
 
     List<LivroDTO> livros = livroService.listarPorNumeroPaginas(numeroPaginas);
-
     return ResponseEntity.ok(livros);
+
+  }
+
+  @PostMapping
+  public ResponseEntity<LivroDTO> salvar(@RequestBody Livro livro) {
+
+    LivroDTO livroDTO = livroService.salvar(livro);
+
+    return ResponseEntity.ok(livroDTO);
 
   }
 
