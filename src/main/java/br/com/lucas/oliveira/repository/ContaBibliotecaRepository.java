@@ -2,10 +2,10 @@ package br.com.lucas.oliveira.repository;
 
 import br.com.lucas.oliveira.model.ContaBiblioteca;
 
-public interface ContaBibliotecaRepository {
-	
-	ContaBiblioteca buscar(Long id);
-	ContaBiblioteca salvar(ContaBiblioteca contaBiblioteca);
-	void remover(ContaBiblioteca contaBiblioteca);
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface ContaBibliotecaRepository extends JpaRepository<ContaBiblioteca, Long> {
 
 }

@@ -1,14 +1,11 @@
 package br.com.lucas.oliveira.repository;
 
-import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import br.com.lucas.oliveira.model.Pessoa;
 
-public interface PessoaRepository {
-	
-	List<Pessoa> listar();
-	Pessoa buscar(Long id);
-	Pessoa salvar(Pessoa pessoa);
-	void remover(Pessoa pessoa);
+@Repository
+public interface PessoaRepository extends JpaRepository<Pessoa, Long> {
 
 }

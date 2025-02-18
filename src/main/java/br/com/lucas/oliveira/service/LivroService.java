@@ -26,7 +26,7 @@ public class LivroService {
   @PostConstruct
   private void carregarArvore() {
     arvoreAvl = new ArvoreAvl();
-    livroRepository.listar().forEach(livro -> arvoreAvl.inserirLivro(livro));
+    livroRepository.findAll().forEach(livro -> arvoreAvl.inserirLivro(livro));
   }
 
   /*
@@ -37,7 +37,7 @@ public class LivroService {
     try {
       arvoreAvl.inserirLivro(livro);
 
-      livro = livroRepository.salvar(livro);
+      livro = livroRepository.save(livro);
 
       return LivroDTO.toDTO(livro);
 
