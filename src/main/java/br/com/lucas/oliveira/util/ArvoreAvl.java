@@ -1,28 +1,27 @@
-package br.com.lucas.oliveira.model.utils;
+package br.com.lucas.oliveira.util;
 
-import br.com.lucas.oliveira.model.Livro;
 import java.util.ArrayList;
 import java.util.List;
 
 // classe responsável pela árvore avl que gerencia os livros
-public class ArvoreAvl {
+public class ArvoreAvl<T extends ElementoAvl> {
 
-  private Node root;
+  private Node<T> root;
 
   public ArvoreAvl() {
     this.root = null;
   }
 
-  public Node getRoot() {
+  public Node<T> getRoot() {
     return root;
   }
 
-  public void setRoot(Node root) {
+  public void setRoot(Node<T> root) {
     this.root = root;
   }
 
   // função para obter a altura de um nó
-  private int altura(Node N) {
+  private int altura(Node<T> N) {
     if (is_empty(N)) {
       return 0;
     }
@@ -32,9 +31,9 @@ public class ArvoreAvl {
   }
 
   // função responsável por rotacinar a árvore para direita
-  private Node rotacaoDireita(Node pai) {
+  private Node<T> rotacaoDireita(Node<T> pai) {
 
-    Node filhoEsquerdo = pai.esquerda;
+    Node<T> filhoEsquerdo = pai.esquerda;
     pai.esquerda = filhoEsquerdo.direita;
     filhoEsquerdo.direita = pai;
 
@@ -47,9 +46,9 @@ public class ArvoreAvl {
   }
 
   // função responsável por rotacinar para a esquerda
-  private Node rotacaoEsquerda(Node pai) {
+  private Node<T> rotacaoEsquerda(Node<T> pai) {
 
-    Node filhoDireita = pai.direita;
+    Node<T> filhoDireita = pai.direita;
     pai.direita = filhoDireita.esquerda;
     filhoDireita.esquerda = pai;
 
@@ -63,7 +62,7 @@ public class ArvoreAvl {
 
   // função para obter o fator de balanceamento, considerando esquerda como
   // positivo
-  private int fatorBalanceamento(Node N) {
+  private int fatorBalanceamento(Node<T> N) {
     if (is_empty(N)) {
       return 0;
     }
@@ -72,12 +71,12 @@ public class ArvoreAvl {
 
   }
 
-  private boolean is_empty(Node raiz) {
+  private boolean is_empty(Node<T> raiz) {
     return raiz == null;
   }
 
   // função para rotacionar a árvore
-  private Node rotacionarArvore(Node raiz, Livro livro) {
+  private Node<T> rotacionarArvore(Node<T> raiz, T tipo) {
 
     if (is_empty(raiz)) {
       return raiz;
@@ -87,7 +86,7 @@ public class ArvoreAvl {
 
     if (fatorBalanco > 1) {
 
-      if (livro.getId() < raiz.esquerda.livro.getId()) { // neste caso ocorre uma rotação LL
+      if (tipo.getId() < raiz.esquerda.tipo.getId()) { // neste caso ocorre uma rotação LL
 
         return rotacaoDireita(raiz);
 
@@ -100,7 +99,7 @@ public class ArvoreAvl {
 
     if (fatorBalanco < -1) {
 
-      if (livro.getId() > raiz.direita.livro.getId()) { // neste caso ocorre uma rotação RR
+      if (tipo.getId() > raiz.direita.tipo.getId()) { // neste caso ocorre uma rotação RR
         return rotacaoEsquerda(raiz);
       } else {
         raiz.direita = rotacaoDireita(raiz.direita); // neste caso ocorre uma rotação RL
@@ -113,56 +112,55 @@ public class ArvoreAvl {
 
   }
 
-  public void inserirLivro(Livro livro) throws IllegalArgumentException {
-    this.root = inserir(livro, this.root);
+  public void inserirEntidade(T tipo) throws IllegalArgumentException {
+    this.root = inserir(tipo, this.root);
   }
 
   // função recursiva para inserir na árvore;
-  private Node inserir(Livro livro, Node raiz) throws IllegalArgumentException {
+  private Node<T> inserir(T tipo, Node<T> raiz) throws IllegalArgumentException {
 
     if (is_empty(raiz)) {
-      return new Node(livro);
+      return new Node<T>(tipo);
     }
 
-    if (livro.getId() < raiz.livro.getId()) { // inserindo no ramo esquerdo da árvore
+    if (tipo.getId() < raiz.tipo.getId()) { // inserindo no ramo esquerdo da árvore
 
-      raiz.esquerda = inserir(livro, raiz.esquerda);
+      raiz.esquerda = inserir(tipo, raiz.esquerda);
 
-    } else if (livro.getId() > raiz.livro.getId()) {
-      raiz.direita = inserir(livro, raiz.direita); // inserindo no ramo direito da árvore
+    } else if (tipo.getId() > raiz.tipo.getId()) {
+      raiz.direita = inserir(tipo, raiz.direita); // inserindo no ramo direito da árvore
 
     } else { // caso o livro já exista na coleção
       throw new IllegalArgumentException(
-          String.format("Erro: O livro %s, do autor %s, já existe no acervo.\nAtualize a quantidade de exemplares",
-              livro.getTitulo(), livro.getNomeAutor()));
+          String.format("Erro: Entidade existente"));
     }
 
     raiz.altura = Math.max(altura(raiz.esquerda), altura(raiz.direita)) + 1; // atualizando a altura
 
-    return rotacionarArvore(raiz, livro);
+    return rotacionarArvore(raiz, tipo);
 
   }
 
   // função recursiva para remover um livro da árvore com base no id
   // função remove por atualização de ponteiros
 
-  public void removerLivro(Livro livro) throws IllegalArgumentException {
-    this.root = remover(livro, this.root);
+  public void removerEntidade(T tipo) throws IllegalArgumentException {
+    this.root = remover(tipo, this.root);
   }
 
-  private Node remover(Livro livro, Node raiz) throws IllegalArgumentException {
+  private Node<T> remover(T tipo, Node<T> raiz) throws IllegalArgumentException {
 
     if (is_empty(raiz)) {
       throw new IllegalArgumentException("Erro: Não é possível remover, pois o banco de dados está vazio.");
     }
 
-    Node guardarRaiz = raiz;
+    Node<T> guardarRaiz = raiz;
 
-    // buscando o id do livro na árvore
-    if (livro.getId() < raiz.livro.getId()) {
-      raiz.esquerda = remover(livro, raiz.esquerda);
-    } else if (livro.getId() > raiz.livro.getId()) {
-      raiz.direita = remover(livro, raiz.direita);
+    // buscando o id na árvore
+    if (tipo.getId() < raiz.tipo.getId()) {
+      raiz.esquerda = remover(tipo, raiz.esquerda);
+    } else if (tipo.getId() > raiz.tipo.getId()) {
+      raiz.direita = remover(tipo, raiz.direita);
     } else {
 
       // neste caso o id foi encontrado
@@ -174,7 +172,7 @@ public class ArvoreAvl {
 
       } else { // caso o nó a ser removido tenha dois filhos
 
-        Node anteriorGuardarRaiz = null;
+        Node<T> anteriorGuardarRaiz = null;
         guardarRaiz = raiz.direita;
 
         while (guardarRaiz.esquerda != null) { // percorrendo o nó mais esquerda do filho da direita do nó a ser
@@ -199,62 +197,57 @@ public class ArvoreAvl {
       return guardarRaiz;
     }
     guardarRaiz.altura = Math.max(altura(guardarRaiz.direita), altura(guardarRaiz.esquerda)) + 1;
-    return rotacionarArvore(guardarRaiz, livro);
+    return rotacionarArvore(guardarRaiz, tipo);
   }
 
-  public Livro pesquisarLivro(Livro livro) {
-    return pesquisar(livro, this.root);
+  public T pesquisarEntidade(T tipo) {
+    return pesquisar(tipo.getId(), this.root);
   }
 
-  public Livro pesquisarLivro(Long id) {
-
-    Livro livro = new Livro();
-    livro.setId(id);
-
-    return pesquisar(livro, this.root);
+  public T pesquisarEntidadePorId(Long id) {
+    return pesquisar(id, this.root);
   }
 
-  private Livro pesquisar(Livro livro, Node raiz) {
+  private T pesquisar(Long id, Node<T> raiz) {
     if (is_empty(raiz)) { // caso base, livro não encontrado
       return null;
     }
 
-    if (livro.getId() < raiz.livro.getId()) {
-      return pesquisar(livro, raiz.esquerda); // procurando nos ramos da esquerda
-    } else if (livro.getId() > raiz.livro.getId()) {
-      return pesquisar(livro, raiz.direita); // procurando nos ramos da direita
+    if (id < raiz.tipo.getId()) {
+      return pesquisar(id, raiz.esquerda); // procurando nos ramos da esquerda
+    } else if (id > raiz.tipo.getId()) {
+      return pesquisar(id, raiz.direita); // procurando nos ramos da direita
     } else {
-      return raiz.livro; // caso tenha achado o livro na coleção
+      return raiz.tipo; // caso tenha achado o livro na coleção
     }
 
   }
 
   // função recursiva para atualizar um livro
 
-  public void atualizarLivro(Livro novoLivro) throws IllegalArgumentException {
-    this.root = atualizar(novoLivro, this.root);
+  public void atualizarEntidade(T tipo) throws IllegalArgumentException {
+    this.root = atualizar(tipo, this.root);
   }
 
-  private Node atualizar(Livro novoLivro, Node raiz) throws IllegalArgumentException {
+  private Node<T> atualizar(T tipo, Node<T> raiz) throws IllegalArgumentException {
 
     if (is_empty(raiz)) {
       throw new IllegalArgumentException(String.format(
-          "Erro: Não foi possivél atualizar o livro %s, porque o banco de dados está vazio.", novoLivro.getTitulo()));
+          "Erro: Não foi possivél atualizar a Entidade de ID: %d, porque o banco de dados está vazio.", tipo.getId()));
     }
 
-    if (novoLivro.getId() < raiz.livro.getId()) { // procurando no ramo da esquerda
-      raiz.esquerda = atualizar(novoLivro, raiz.esquerda);
+    if (tipo.getId() < raiz.tipo.getId()) { // procurando no ramo da esquerda
+      raiz.esquerda = atualizar(tipo, raiz.esquerda);
 
-    } else if (novoLivro.getId() > raiz.livro.getId()) { // procurando no ramo da direita
-      raiz.direita = atualizar(novoLivro, raiz.direita);
+    } else if (tipo.getId() > raiz.tipo.getId()) { // procurando no ramo da direita
+      raiz.direita = atualizar(tipo, raiz.direita);
 
     } else {
-      if (raiz.livro.equals(novoLivro)) {
-        raiz.livro = novoLivro;
+      if (raiz.tipo.equals(tipo)) {
+        raiz.tipo = tipo;
       } else {
-        throw new IllegalArgumentException(String.format(
-            "Erro: Não foi possível atualizar pois, o livro %s é diferente do que consta no banco de dados.",
-            novoLivro.getTitulo()));
+        throw new IllegalArgumentException(
+            String.format("Não foi possivel atualizar a Entidade de ID: %d", tipo.getId()));
       }
     }
 
@@ -262,18 +255,18 @@ public class ArvoreAvl {
 
   }
 
-  public List<Livro> toList() {
+  public List<T> toList() {
     return preOrder(this.root);
   }
 
-  private List<Livro> preOrder(Node raiz) {
-    List<Livro> livros = new ArrayList<>();
+  private List<T> preOrder(Node<T> raiz) {
+    List<T> tipos = new ArrayList<>();
     if (raiz != null) {
-      livros.add(raiz.livro);
-      livros.addAll(preOrder(raiz.esquerda));
-      livros.addAll(preOrder(raiz.direita));
+      tipos.add(raiz.tipo);
+      tipos.addAll(preOrder(raiz.esquerda));
+      tipos.addAll(preOrder(raiz.direita));
     }
-    return livros;
+    return tipos;
   }
 
 }
