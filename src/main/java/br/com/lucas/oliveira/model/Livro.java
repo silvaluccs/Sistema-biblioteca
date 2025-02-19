@@ -1,5 +1,7 @@
 package br.com.lucas.oliveira.model;
 
+import br.com.lucas.oliveira.util.ElementoAvl;
+
 import jakarta.persistence.Id;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,7 +13,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-public class Livro {
+public class Livro implements ElementoAvl {
 
   @EqualsAndHashCode.Include
   @Id

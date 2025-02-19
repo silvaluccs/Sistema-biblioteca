@@ -1,5 +1,6 @@
 package br.com.lucas.oliveira.model;
 
+import br.com.lucas.oliveira.util.ElementoAvl;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,7 +13,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-public class Pessoa {
+public class Pessoa implements ElementoAvl {
 
   @EqualsAndHashCode.Include
   @Id
