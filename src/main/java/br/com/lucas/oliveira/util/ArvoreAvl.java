@@ -3,7 +3,7 @@ package br.com.lucas.oliveira.util;
 import java.util.ArrayList;
 import java.util.List;
 
-// classe responsável pela árvore avl que gerencia os livros
+// classe responsável pela árvore avl que gerencia as entidades
 public class ArvoreAvl<T extends ElementoAvl> {
 
   private Node<T> root;
@@ -130,7 +130,7 @@ public class ArvoreAvl<T extends ElementoAvl> {
     } else if (tipo.getId() > raiz.tipo.getId()) {
       raiz.direita = inserir(tipo, raiz.direita); // inserindo no ramo direito da árvore
 
-    } else { // caso o livro já exista na coleção
+    } else { // caso a entidade já exista na coleção
       throw new IllegalArgumentException(
           String.format("Erro: Entidade existente"));
     }
@@ -141,7 +141,7 @@ public class ArvoreAvl<T extends ElementoAvl> {
 
   }
 
-  // função recursiva para remover um livro da árvore com base no id
+  // função recursiva para remover uma entidade da árvore
   // função remove por atualização de ponteiros
 
   public void removerEntidade(T tipo) throws IllegalArgumentException {
@@ -209,7 +209,7 @@ public class ArvoreAvl<T extends ElementoAvl> {
   }
 
   private T pesquisar(Long id, Node<T> raiz) {
-    if (is_empty(raiz)) { // caso base, livro não encontrado
+    if (is_empty(raiz)) { // caso base, entidade não encontrado
       return null;
     }
 
@@ -218,12 +218,12 @@ public class ArvoreAvl<T extends ElementoAvl> {
     } else if (id > raiz.tipo.getId()) {
       return pesquisar(id, raiz.direita); // procurando nos ramos da direita
     } else {
-      return raiz.tipo; // caso tenha achado o livro na coleção
+      return raiz.tipo; // caso tenha achado a entidade na coleção
     }
 
   }
 
-  // função recursiva para atualizar um livro
+  // função recursiva para atualizar uma entidade na coleção
 
   public void atualizarEntidade(T tipo) throws IllegalArgumentException {
     this.root = atualizar(tipo, this.root);

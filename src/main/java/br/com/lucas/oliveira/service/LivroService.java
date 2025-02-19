@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import br.com.lucas.oliveira.model.utils.ArvoreAvl;
+import br.com.lucas.oliveira.util.ArvoreAvl;
 import br.com.lucas.oliveira.repository.LivroRepository;
 import jakarta.annotation.PostConstruct;
 import br.com.lucas.oliveira.exception.EntidadeExistenteException;
@@ -15,7 +15,7 @@ import br.com.lucas.oliveira.dto.LivroDTO;
 @Service
 public class LivroService {
 
-  private ArvoreAvl arvoreAvl;
+  private ArvoreAvl<Livro> arvoreAvl;
 
   @Autowired
   private LivroRepository livroRepository;
@@ -25,8 +25,8 @@ public class LivroService {
    */
   @PostConstruct
   private void carregarArvore() {
-    arvoreAvl = new ArvoreAvl();
-    livroRepository.findAll().forEach(livro -> arvoreAvl.inserirLivro(livro));
+    arvoreAvl = new ArvoreAvl<>();
+    livroRepository.findAll().forEach(livro -> arvoreAvl.inserirEntidade(livro));
   }
 
   /*
@@ -35,7 +35,7 @@ public class LivroService {
   public LivroDTO salvar(Livro livro) throws EntidadeExistenteException {
 
     try {
-      arvoreAvl.inserirLivro(livro);
+      arvoreAvl.inserirEntidade(livro);
 
       livro = livroRepository.save(livro);
 
@@ -52,7 +52,7 @@ public class LivroService {
    */
   public LivroDTO buscar(Long id) throws EntidadeNaoEncontradaException {
 
-    Livro livro = arvoreAvl.pesquisarLivro(id);
+    Livro livro = arvoreAvl.pesquisarEntidadePorId(id);
 
     if (livro == null) {
       throw new EntidadeNaoEncontradaException(
