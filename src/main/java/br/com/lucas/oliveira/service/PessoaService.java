@@ -9,12 +9,22 @@ import br.com.lucas.oliveira.dto.PessoaDTO;
 import br.com.lucas.oliveira.exception.EntidadeNulaException;
 import br.com.lucas.oliveira.model.Pessoa;
 import br.com.lucas.oliveira.repository.PessoaRepository;
+import br.com.lucas.oliveira.util.ArvoreAvl;
+import jakarta.annotation.PostConstruct;
 
 @Service
 public class PessoaService {
 
+  private ArvoreAvl<Pessoa> arvoreAvl;
+
   @Autowired
   private PessoaRepository pessoaRepository;
+
+  @PostConstruct
+  private void carregarArvore() {
+    arvoreAvl = new ArvoreAvl<>();
+    pessoaRepository.findAll().forEach(pessoa -> arvoreAvl.inserirEntidade(pessoa));
+  }
 
   /*
    * Função que lista todas as pessoas
@@ -24,14 +34,7 @@ public class PessoaService {
    * @throws EntidadeNulaException - Caso a pessoa seja nula
    */
   public List<PessoaDTO> listar() throws EntidadeNulaException {
-
-    try {
-      return pessoaRepository.findAll().stream()
-          .map(pessoa -> PessoaDTO.toDTO(pessoa)).toList();
-    } catch (IllegalArgumentException e) {
-      throw new EntidadeNulaException("Pessoa não pode ser nula");
-    }
-
+    return arvoreAvl.toList().stream().map(PessoaDTO::toDTO).toList();
   }
 
   /*
@@ -46,8 +49,11 @@ public class PessoaService {
 
   public PessoaDTO buscar(Long pessoaId) throws EntidadeNulaException {
 
-    Pessoa pessoa = pessoaRepository.findById(pessoaId)
-        .orElseThrow(() -> new EntidadeNulaException("Pessoa não encontrada"));
+    Pessoa pessoa = arvoreAvl.pesquisarEntidadePorId(pessoaId);
+
+    if (pessoa == null) {
+      throw new EntidadeNulaException("Pessoa não encontrada");
+    }
 
     return PessoaDTO.toDTO(pessoa);
 
@@ -66,9 +72,9 @@ public class PessoaService {
 
     try {
 
-      return pessoaRepository.findAll().stream()
+      return arvoreAvl.toList().stream()
           .filter(pessoa -> pessoa.getContaBiblioteca().getLogado() == status)
-          .map(pessoa -> PessoaDTO.toDTO(pessoa)).toList();
+          .map(PessoaDTO::toDTO).toList();
 
     } catch (IllegalArgumentException e) {
       throw new EntidadeNulaException("Pessoa não pode ser nula");
@@ -88,8 +94,11 @@ public class PessoaService {
 
   public boolean buscarLogado(Long id) throws EntidadeNulaException {
 
-    Pessoa pessoa = pessoaRepository.findById(id)
-        .orElseThrow(() -> new EntidadeNulaException("Pessoa não encontrada"));
+    Pessoa pessoa = arvoreAvl.pesquisarEntidadePorId(id);
+
+    if (pessoa == null) {
+      throw new EntidadeNulaException("Pessoa não encontrada");
+    }
 
     return pessoa.getContaBiblioteca().getLogado();
 
